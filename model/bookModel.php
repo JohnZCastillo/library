@@ -4,7 +4,8 @@ namespace model;
 
 use Exception;
 
-class BookModel extends Book{
+class BookModel extends Book
+{
 
     private $connection;
 
@@ -51,22 +52,28 @@ class BookModel extends Book{
     public function save()
     {
 
+        $isbn = parent::getISBN();
+        $title = parent::getTitle();
+        $description = parent::getDescription();
+        $status = parent::getStatus();
+        $imagePath = parent::getImagePath();
+
         $conn = $this->getConnection();
+
 
         $stmt = $conn->prepare("INSERT INTO book (isbn, title, description, status, image_path) VALUES (?, ?, ?, ?, ?)");
 
-        $stmt->bind_param("sssss", parent::getISBN(), parent::getTitle(), parent::getDescription(), parent::getStatus(), parent::getImagePath());
+        $stmt->bind_param("sssss", $isbn, $title, $description, $status, $imagePath);
 
         // execute prepared statement
         $result = $stmt->execute();
 
-        if($result){
+        if ($result) {
             $this->setId($conn->insert_id);
             return;
         }
 
         throw new Exception("Error Saving Book");
-
     }
 
     public function update()
@@ -80,7 +87,7 @@ class BookModel extends Book{
         // execute prepared statement
         $result = $stmt->execute();
 
-        if($result){
+        if ($result) {
             $this->setId($conn->insert_id);
             return;
         }
@@ -88,7 +95,8 @@ class BookModel extends Book{
         throw new Exception("Error Saving Book");
     }
 
-    public function delete() {
+    public function delete()
+    {
 
         $conn = $this->getConnection();
 
@@ -101,7 +109,7 @@ class BookModel extends Book{
 
     public function findAll()
     {
-     
+
         $conn = $this->getConnection();
 
         $result = $conn->query("SELECT * FROM book");
@@ -121,9 +129,8 @@ class BookModel extends Book{
 
                 $books[] = $book;
             }
+        }
 
-        } 
-        
         return $books;
     }
 

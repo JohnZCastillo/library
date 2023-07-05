@@ -5,3 +5,10 @@
 <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
 
 <script src="/bootstrap/bootstrap.min.js"></script>
+
+
+<style>
+     td {
+        vertical-align: middle;
+    }
+</style>

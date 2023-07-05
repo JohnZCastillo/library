@@ -13,23 +13,28 @@ $bookModel = new BookModel($conn);
 // get all books from database
 $books = $bookModel->findAll();
 
-
 // handle Post Request
 
-if(isset($_POST['newbook'])){
+if (isset($_POST['newbook'])) {
 
     $uploadPath = "./uploads/";
-
     $image = $_FILES['image'];
 
-    $imagePath = Image::store($uploadPath,$image);
+    // create book instal
+    $book = new BookModel($conn);
 
+    $imagePath = Image::store($uploadPath, $image);
     $isbn = $_POST["isbn"];
     $title = $_POST["title"];
     $description = $_POST["description"];
 
-    var_dump($image);
+    $book->setISBN($isbn);
+    $book->setTitle($title);
+    $book->setDescription($description);
+    $book->setImagePath($imagePath);
 
+    // save book
+    $book->save();
 }
 
 ?>
@@ -89,14 +94,14 @@ if(isset($_POST['newbook'])){
 
                 <?php foreach ($books as $book) : ?>
                     <tr>
-                        <td><?php echo $book['cover'] ?></td>
-                        <td><?php echo $book['isbn'] ?></td>
-                        <td><?php echo $book['title'] ?></td>
-                        <td><?php echo $book['description'] ?></td>
-                        <td><?php echo $book['status'] ?></td>
+                        <td><img src=" ./uploads/<?php echo $book->getImagePath() ?>" class="image-fluid" style="max-width: 50px"></td>
+                        <td><?php echo $book->getISBN() ?></td>
+                        <td><?php echo $book->getTitle() ?></td>
+                        <td><?php echo $book->getDescription() ?></td>
+                        <td><?php echo $book->getStatus() ?></td>
                         <td>
-                            <button class="btn delete">edit</button>
-                            <button class="btn delete">delete</button>
+                            <button class="btn btn-secondary">edit</button>
+                            <button class="btn btn-danger">delete</button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -136,7 +141,7 @@ if(isset($_POST['newbook'])){
                             <label for="description">Description</label>
                             <textarea class="form-control" id="description" name="description" cols="20" rows="5" required></textarea>
                         </div>
-                        
+
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </form>

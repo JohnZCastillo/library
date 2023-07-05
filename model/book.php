@@ -8,7 +8,7 @@ class Book
     private $isbn;
     private $title;
     private $description;
-    private $status;
+    private $status = "available";
     private $image_path;
 
     // Getter methods
