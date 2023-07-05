@@ -80,9 +80,17 @@ class BookModel extends Book
     {
         $conn = $this->getConnection();
 
+        $isbn = parent::getISBN();
+        $title = parent::getTitle();
+        $description = parent::getDescription();
+        $status = parent::getStatus();
+        $imagePath = parent::getImagePath();
+        $id = parent::getId();
+
         $stmt = $conn->prepare("UPDATE book SET isbn= ?, title = ?, description = ?, status = ?, image_path = ? WHERE id = ?");
 
-        $stmt->bind_param("sssss", parent::getISBN(), parent::getTitle(), parent::getDescription(), parent::getStatus(), parent::getImagePath());
+        $stmt->bind_param("sssssi", $isbn, $title, $description, $status, $imagePath,$id);
+
 
         // execute prepared statement
         $result = $stmt->execute();
@@ -100,9 +108,11 @@ class BookModel extends Book
 
         $conn = $this->getConnection();
 
-        $stmt = $conn->prepare("DELETE FROM your_table_name WHERE id = ?");
+        $stmt = $conn->prepare("DELETE FROM book WHERE id = ?");
 
-        $stmt->bind_param("i", parent::getId());
+        $id =$this->getId();
+
+        $stmt->bind_param("i", $id);
 
         return $stmt->execute();
     }
@@ -140,6 +150,6 @@ class BookModel extends Book
         parent::setTitle($data['title']);
         parent::setDescription($data['description']);
         parent::setStatus($data['status']);
-        parent::setImagePath($data['imagePath']);
+        parent::setImagePath($data['image_path']);
     }
 }

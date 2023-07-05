@@ -13,29 +13,6 @@ $bookModel = new BookModel($conn);
 // get all books from database
 $books = $bookModel->findAll();
 
-// handle Post Request
-
-if (isset($_POST['newbook'])) {
-
-    $uploadPath = "./uploads/";
-    $image = $_FILES['image'];
-
-    // create book instal
-    $book = new BookModel($conn);
-
-    $imagePath = Image::store($uploadPath, $image);
-    $isbn = $_POST["isbn"];
-    $title = $_POST["title"];
-    $description = $_POST["description"];
-
-    $book->setISBN($isbn);
-    $book->setTitle($title);
-    $book->setDescription($description);
-    $book->setImagePath($imagePath);
-
-    // save book
-    $book->save();
-}
 
 ?>
 <!DOCTYPE html>
@@ -99,9 +76,61 @@ if (isset($_POST['newbook'])) {
                         <td><?php echo $book->getTitle() ?></td>
                         <td><?php echo $book->getDescription() ?></td>
                         <td><?php echo $book->getStatus() ?></td>
-                        <td>
-                            <button class="btn btn-secondary">edit</button>
-                            <button class="btn btn-danger">delete</button>
+                        <td class="d-flex gap">
+
+                            <div class="modal" id="updateBook<?php echo $book->getId() ?>" tabindex="-1" role="dialog">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Update Book</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="form" action="./action/updatebook.php" method="POST" enctype="multipart/form-data">
+                                                <div>
+                                                    <input type="text" name="id" class="d-none" value="<?php echo $book->getId() ?>">
+                                                </div>
+                                                <div class="form-group mb-1">
+                                                    <label for="image">Image</label>
+                                                    <input type="file" class="form-control" id="image" name="image">
+                                                </div>
+                                                <div class="form-group mb-1">
+                                                    <label for="isbn">ISBN</label>
+                                                    <input type="text" class="form-control" id="isbn" name="isbn" required value="<?php echo $book->getISBN() ?>">
+                                                </div>
+                                                <div class="form-group mb-1">
+                                                    <label for="title">Title</label>
+                                                    <input type="text" class="form-control" id="title" name="title" required value="<?php echo $book->getTitle() ?>">
+                                                </div>
+                                                <div class="form-group mb-1">
+                                                    <label for="description">Description</label>
+                                                    <textarea class="form-control" id="description" name="description" required><?php echo $book->getDescription() ?></textarea>
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label for="status">Status</label>
+                                                    <select class="form-control" id="status" name="status" required>
+                                                        <option value="available" selected>Available</option>
+                                                        <option value="unavailable">Unavailable</option>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Update</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-secondary" data-toggle="modal" data-target="#updateBook<?php echo $book->getId() ?>">edit</button>
+
+                            <form action="./action/deletebook.php" method="POST">
+                                <input type="text" name="deleteId" class="d-none" value="<?php echo $book->getId() ?>">
+                                <input type="text" name="deleteBook" value="1" class="d-none">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -121,7 +150,7 @@ if (isset($_POST['newbook'])) {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="form" action="admin.php" method="POST" enctype="multipart/form-data">
+                    <form class="form" action="./action/addbook.php" method="POST" enctype="multipart/form-data">
                         <div>
                             <input type="text" name="newbook" class="d-none">
                         </div>

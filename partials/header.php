@@ -11,4 +11,7 @@
      td {
         vertical-align: middle;
     }
+    .gap{
+gap: 10px;
+    }
 </style>
