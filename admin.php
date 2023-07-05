@@ -2,9 +2,12 @@
 
 require_once './autoload.php';
 
-use lib\Image;
+use lib\Authentication;
 use model\BookModel;
 use model\Database;
+
+Authentication::authorizeOnly();
+
 
 //connect to databaes
 $conn = Database::open();
@@ -40,6 +43,9 @@ $books = $bookModel->findAll();
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="signup.php">Books</a>
+                    </li>
+                    <li class="nav-item bg-danger rounded">
+                        <a class="nav-link text-white" href="logout.php">Logout</a>
                     </li>
                 </ul>
             </div>

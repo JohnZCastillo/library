@@ -25,6 +25,10 @@ $book->setTitle($title);
 $book->setDescription($description);
 $book->setStatus($status);
 
+if($book->getStatus() == 'available'){
+    $book->setBorrowedBy(0);
+}
+
 if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
     $uploadPath = "../uploads/";
     $image = $_FILES['image'];

@@ -22,6 +22,7 @@ if ($book->getStatus() == 'unavailable') {
 } else {
     $_SESSION['userMessage'] = "Borrow Success";
     $book->setStatus('unavailable');
+    $book->setBorrowedBy($_SESSION['login']);
 }
 
 // save book

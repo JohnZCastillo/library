@@ -10,6 +10,19 @@ class Book
     private $description;
     private $status = "available";
     private $image_path;
+    private $borrowedBy;
+
+    
+     // Getter methods
+     public function getBorrowedBy()
+     {
+         return $this->borrowedBy;
+     }
+
+     public function setBorrowedBy($borrower)
+     {
+        $this->borrowedBy = $borrower;
+     }
 
     // Getter methods
     public function getId()

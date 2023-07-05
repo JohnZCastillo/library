@@ -2,11 +2,11 @@
 
 require_once './autoload.php';
 
-session_start();
-
-use lib\Image;
+use lib\Authentication;
 use model\BookModel;
 use model\Database;
+
+Authentication::authorizeOnly();
 
 //connect to databaes
 $conn = Database::open();
@@ -31,27 +31,30 @@ $books = $bookModel->findAll();
 </head>
 
 <body>
-    <div>
-        <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top px-3">
-            <a class="navbar-brand" href="index.php">
-                <i class="fa-solid fa-poo">GROUP 3</I>
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#zzzz">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="zzzz">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="signup.php">Library</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="book.php">My Books</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
 
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top px-3">
+        <a class="navbar-brand" href="index.php">
+            <i class="fa-solid fa-poo">GROUP 3</I>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#zzzz">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="zzzz">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="user.php">Library</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="mybooks.php">My Books</a>
+                </li>
+                <li class="nav-item bg-danger rounded">
+                    <a class="nav-link text-white" href="logout.php">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <h3 class="display-5">Library</h3>
     <div class="container-fluid p-3 row">
 
         <?php foreach ($books as $book) : ?>
@@ -79,13 +82,13 @@ $books = $bookModel->findAll();
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
+                        <h5 class="modal-title">Message</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Modal body text goes here.</p>
+                        <p> <?php echo ($_SESSION['userMessage']) ?></p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

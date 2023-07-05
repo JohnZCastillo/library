@@ -85,12 +85,12 @@ class BookModel extends Book
         $description = parent::getDescription();
         $status = parent::getStatus();
         $imagePath = parent::getImagePath();
+        $borrower = parent::getBorrowedBy();
         $id = parent::getId();
 
-        $stmt = $conn->prepare("UPDATE book SET isbn= ?, title = ?, description = ?, status = ?, image_path = ? WHERE id = ?");
+        $stmt = $conn->prepare("UPDATE book SET isbn= ?, title = ?, description = ?, status = ?, image_path = ?, borrowed_by = ? WHERE id = ?");
 
-        $stmt->bind_param("sssssi", $isbn, $title, $description, $status, $imagePath,$id);
-
+        $stmt->bind_param("sssssii", $isbn, $title, $description, $status, $imagePath,$borrower,$id);
 
         // execute prepared statement
         $result = $stmt->execute();
@@ -144,6 +144,37 @@ class BookModel extends Book
         return $books;
     }
 
+    public function borrowed($id)
+    {
+
+        $conn = $this->getConnection();
+
+        $stmt = $conn->prepare("SELECT * FROM book WHERE borrowed_by = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        
+        $result = $stmt->get_result();
+        
+        $books = [];
+
+        if ($result->num_rows > 0) {
+
+            while ($row = $result->fetch_assoc()) {
+                $book = new Book();
+                $book->setId($row['id']);
+                $book->setISBN($row['isbn']);
+                $book->setTitle($row['title']);
+                $book->setDescription($row['description']);
+                $book->setStatus($row['status']);
+                $book->setImagePath($row['image_path']);
+
+                $books[] = $book;
+            }
+        }
+
+        return $books;
+    }
+
     private function updateSelf($data)
     {
         parent::setId($data['id']);
@@ -151,5 +182,7 @@ class BookModel extends Book
         parent::setDescription($data['description']);
         parent::setStatus($data['status']);
         parent::setImagePath($data['image_path']);
+        parent::setISBN($data['isbn']);
+        parent::setBorrowedBy($data['borrowed_by']);
     }
 }

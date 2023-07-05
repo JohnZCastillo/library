@@ -55,6 +55,8 @@ if (isset($_POST['name'], $_POST['email'], $_POST['password'])) {
     <div class="container-fluid d-flex align-items-center justify-content-center vh-100 bg-dark">
 
         <form action="signup.php" method="post" class="form w-50 p-3 rounded bg-white">
+        <h6 class="display-6">Sign Up</h6>
+
             <div class="form-group">
                 <label for="username" class="form-label m-0">Name</label>
                 <input type="text" placeholder="Enter Name" name="name" class="form-control" required>
@@ -68,6 +70,8 @@ if (isset($_POST['name'], $_POST['email'], $_POST['password'])) {
                 <input type="password" placeholder="Enter Password" name="password" class="form-control" required>
             </div>
             <button type="submit" class="btn btn-success mt-2">Sign Up</button>
+
+            <a href="/login.php" class="text-decoration-none text-secondary d-block text-center">Login</a>
 
             <div class="form-group text-center small text-danger">
                 <?php
