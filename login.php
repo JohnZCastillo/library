@@ -21,12 +21,14 @@ if (isset($_POST['email'], $_POST['password'])) {
     //check credentials
     $user =  $userModel->login($email, $password);
 
-    //not authorized
+    //authorized
     if ($user) {
         Redirect::redirect();
+        Authentication::login($user);
         die();
     }
 
+    //reach this line if not authorized
     $_SESSION['loginError'] = "Incorrect Username/Password";
 } else {
     unset($_SESSION['loginError']);
