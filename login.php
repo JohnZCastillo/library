@@ -1,26 +1,38 @@
 <?php
 
-    require './model/userModel.php';
-    require './model/database.php';
+require_once './autoload.php';
 
-    if(isset($_POST['email'],$_POST['password'])){
+use model\UserModel;
+use model\Database;
+use lib\Redirect;
 
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+// handle post request
+if (isset($_POST['email'], $_POST['password'])) {
 
-        $valid = UserModel::login($email, $password);
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-        if(!$valid){
-            $_SESSION['loginError'] = "Incorrect Username/Password";
-        }
+    // open database connection
+    $connection = Database::open();
 
-        
+    // create user model
+    $userModel = new UserModel($connection);
 
+    //check credentials
+    $user =  $userModel->login($email, $password);
+
+    //not authorized
+    if ($user) {
+        Redirect::redirect();
+        die();
     }
 
+    $_SESSION['loginError'] = "Incorrect Username/Password";
+} else {
+    unset($_SESSION['loginError']);
+}
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,9 +55,17 @@
             </div>
             <div class="form-group mt-1">
                 <label for="username" class="form-label m-0">Password</label>
-                <input type="password" placeholder="Enter Password" name="pass" class="form-control" required>
+                <input type="password" placeholder="Enter Password" name="password" class="form-control" required>
             </div>
             <button type="submit" class="btn btn-success mt-2">Login</button>
+
+            <div class="form-group text-center small text-danger">
+                <?php
+                if (isset($_SESSION['loginError'])) {
+                    echo $_SESSION['loginError'];
+                }
+                ?>
+            </div>
         </form>
     </div>
 

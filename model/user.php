@@ -1,5 +1,7 @@
 <?php
 
+namespace model;
+
 class User
 {
 
@@ -8,7 +10,6 @@ class User
     private $email;
     private $password;
     private $role;
-
 
     // Setter methods
     public function setName($name)
