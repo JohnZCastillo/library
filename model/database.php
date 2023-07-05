@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Db;
+namespace model;
 
 class Database
 {
 
-    private static $serverName;
-    private static $userName;
-    private static $password;
-    private static $database;
+    private static $serverName = "localhost";
+    private static $userName = "root";
+    private static $password = "";
+    private static $database = "library";
 
     public static function open()
     {
@@ -17,7 +17,7 @@ class Database
             self::$serverName,
             self::$userName,
             self::$password,
-            self::$password
+            self::$database
         );
 
         if (!$connection) {
