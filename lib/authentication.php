@@ -13,12 +13,13 @@ class Authentication
 {
 
     static function start(){
-        
+
     }
 
     static function login($user)
     {
         $_SESSION['login'] = $user->getId();
+        $_SESSION['role'] = $user->getRole();
     }
 
     static function logout()

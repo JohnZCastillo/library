@@ -12,6 +12,12 @@ class Redirect
 
     static function redirect()
     {
-        header("Location: /user.php");
+        if($_SESSION['role'] == 'admin'){
+
+            header("Location: /admin.php");
+        }else{
+            header("Location: /user.php");
+
+        }
     }
 }

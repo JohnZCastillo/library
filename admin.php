@@ -42,7 +42,7 @@ $books = $bookModel->findAll();
             <div class="collapse navbar-collapse justify-content-end" id="zzzz">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="signup.php">Books</a>
+                        <a class="nav-link" href="admin.php">Books</a>
                     </li>
                     <li class="nav-item bg-danger rounded">
                         <a class="nav-link text-white" href="logout.php">Logout</a>

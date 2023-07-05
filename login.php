@@ -26,8 +26,8 @@ if (isset($_POST['email'], $_POST['password'])) {
 
     //authorized
     if ($user) {
-        Redirect::redirect();
         Authentication::login($user);
+        Redirect::redirect();
         die();
     }
 
