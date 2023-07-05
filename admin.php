@@ -34,7 +34,7 @@
 
         <div class="mb-2">
             <button class="btn btn-success">New Book</button>
-            <button class="btn btn-success">Return Book</button>
+            <button class="btn btn-primary">Return Book</button>
         </div>
 
         <table class="table table-bordered table-hover">
