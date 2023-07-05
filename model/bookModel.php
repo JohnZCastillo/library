@@ -104,7 +104,7 @@ class BookModel extends Book{
      
         $conn = $this->getConnection();
 
-        $result = $conn->query("SELECT * FROM your_table_name");
+        $result = $conn->query("SELECT * FROM book");
 
         $books = [];
 

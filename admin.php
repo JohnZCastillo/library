@@ -1,3 +1,38 @@
+<?php
+
+require_once './autoload.php';
+
+use lib\Image;
+use model\BookModel;
+use model\Database;
+
+//connect to databaes
+$conn = Database::open();
+$bookModel = new BookModel($conn);
+
+// get all books from database
+$books = $bookModel->findAll();
+
+
+// handle Post Request
+
+if(isset($_POST['newbook'])){
+
+    $uploadPath = "./uploads/";
+
+    $image = $_FILES['image'];
+
+    $imagePath = Image::store($uploadPath,$image);
+
+    $isbn = $_POST["isbn"];
+    $title = $_POST["title"];
+    $description = $_POST["description"];
+
+    var_dump($image);
+
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +68,7 @@
         <!-- <h2 class="text-center p-4">LIBRARY MANAGEMENT SYSTEM</h2> -->
 
         <div class="mb-2">
-            <button class="btn btn-success">New Book</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#newBook">New Book</button>
             <button class="btn btn-primary">Return Book</button>
         </div>
 
@@ -41,8 +76,8 @@
             <thead>
 
                 <tr>
-                    <th>ISBN</th>
                     <th>Cover</th>
+                    <th>ISBN</th>
                     <th>Title</th>
                     <th>Description</th>
                     <th>Status</th>
@@ -52,9 +87,65 @@
 
             <tbody>
 
+                <?php foreach ($books as $book) : ?>
+                    <tr>
+                        <td><?php echo $book['cover'] ?></td>
+                        <td><?php echo $book['isbn'] ?></td>
+                        <td><?php echo $book['title'] ?></td>
+                        <td><?php echo $book['description'] ?></td>
+                        <td><?php echo $book['status'] ?></td>
+                        <td>
+                            <button class="btn delete">edit</button>
+                            <button class="btn delete">delete</button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+
             </tbody>
         </table>
     </div>
+
+
+    <div class="modal" id="newBook" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New Book</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form" action="admin.php" method="POST" enctype="multipart/form-data">
+                        <div>
+                            <input type="text" name="newbook" class="d-none">
+                        </div>
+                        <div class="form-group mb-1">
+                            <label for="image">Image</label>
+                            <input type="file" class="form-control" id="image" name="image" required>
+                        </div>
+                        <div class="form-group mb-1">
+                            <label for="isbn">ISBN</label>
+                            <input type="text" class="form-control" id="isbn" name="isbn" required>
+                        </div>
+                        <div class="form-group mb-1">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" name="description" cols="20" rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 </body>
 
