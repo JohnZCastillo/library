@@ -31,6 +31,7 @@ $books = $bookModel->findAll();
 </head>
 
 <body>
+
     <div>
         <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top px-3">
             <a class="navbar-brand" href="index.php">
@@ -44,6 +45,9 @@ $books = $bookModel->findAll();
                     <li class="nav-item">
                         <a class="nav-link" href="admin.php">Books</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="borrowers.php">Borrowed Books</a>
+                    </li>
                     <li class="nav-item bg-danger rounded">
                         <a class="nav-link text-white" href="logout.php">Logout</a>
                     </li>
@@ -51,6 +55,7 @@ $books = $bookModel->findAll();
             </div>
         </nav>
     </div>
+
 
     <div class="container-fluid py-2">
         <!-- <h2 class="text-center p-4">LIBRARY MANAGEMENT SYSTEM</h2> -->

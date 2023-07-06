@@ -100,16 +100,29 @@ class UserModel extends User
     }
 
 
-    public function update()
-    {
-    }
-
-    public function delete()
-    {
-    }
 
     public function findAll()
     {
+
+        $conn = $this->getConnection();
+
+        $result = $conn->query("SELECT * FROM user");
+
+        $users = [];
+
+        if ($result->num_rows > 0) {
+
+            while ($row = $result->fetch_assoc()) {
+              
+                $user = new User('');
+                $user->setName($row['name']);
+                $user->setId($row['id']);
+                $user->setEmail($row['email']);
+                $users[] = $user;
+            }
+        }
+
+        return $users;
     }
 
     public function login($email, $password)

@@ -14,7 +14,7 @@ $conn = Database::open();
 $bookModel = new BookModel($conn);
 
 // get all books from database
-$id = 1;
+$id =  $_SESSION['login'];
 $books = $bookModel->borrowed($id);
 
 ?>
