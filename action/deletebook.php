@@ -23,4 +23,4 @@
 
     Image::remove($uploadPath . $image);
 
-    header('location: /admin.php');
+    header('location: ../admin.php');

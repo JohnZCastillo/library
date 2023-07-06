@@ -39,4 +39,4 @@ if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
 // save book
 $book->update();
 
-header('location: /admin.php');
+header('location: ../admin.php');

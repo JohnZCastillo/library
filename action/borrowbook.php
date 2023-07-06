@@ -28,4 +28,4 @@ if ($book->getStatus() == 'unavailable') {
 // save book
 $book->update();
 
-header('location: /user.php');
+header('location: ../user.php');

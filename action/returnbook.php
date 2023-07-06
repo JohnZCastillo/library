@@ -24,4 +24,4 @@ $book->setBorrowedBy(0);
 // save book
 $book->update();
 
-header('location: /mybooks.php');
+header('location: ../mybooks.php');

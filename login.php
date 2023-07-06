@@ -63,7 +63,7 @@ if (isset($_POST['email'], $_POST['password'])) {
             </div>
             <button type="submit" class="btn btn-success mt-2">Login</button>
 
-            <a href="/signup.php" class="text-decoration-none text-secondary d-block text-center">sign up</a>
+            <a href="./signup.php" class="text-decoration-none text-secondary d-block text-center">sign up</a>
             <div class="form-group text-center small text-danger">
                 <?php
                 if (isset($_SESSION['loginError'])) {

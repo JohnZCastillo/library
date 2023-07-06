@@ -27,4 +27,4 @@ $book->setImagePath($imagePath);
 // save book
 $book->save();
 
-header('location: /admin.php');
+header('location: ../admin.php');

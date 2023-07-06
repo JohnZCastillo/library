@@ -40,14 +40,14 @@ $books = $bookModel->borrowed($id);
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="zzzz">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="user.php">Library</a>
+            <li class="nav-item active">
+                    <a class="nav-link" href="./user.php">Library</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="mybooks.php">My Books</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="./mybooks.php">My Books</a>
                 </li>
                 <li class="nav-item bg-danger rounded">
-                    <a class="nav-link text-white" href="logout.php">Logout</a>
+                    <a class="nav-link text-white" href="./logout.php">Logout</a>
                 </li>
             </ul>
         </div>

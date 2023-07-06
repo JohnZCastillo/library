@@ -6,4 +6,4 @@ use lib\Authentication;
 
 Authentication::logout();
 
-header('location: /login.php');
+header('location: ./login.php');

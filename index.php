@@ -32,7 +32,7 @@ if (Authentication::islogin()) {
         <div class="jumbotron text-center">
             <h1 class="display-4">Welcome to the Library Management System</h1>
             <p class="lead">Manage your library collection and borrow books with ease.</p>
-            <a class="btn btn-primary btn-lg" href="/login.php" role="button">Learn more</a>
+            <a class="btn btn-primary btn-lg" href="./login.php" role="button">Learn more</a>
         </div>
     </main>
 

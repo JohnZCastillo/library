@@ -71,7 +71,7 @@ if (isset($_POST['name'], $_POST['email'], $_POST['password'])) {
             </div>
             <button type="submit" class="btn btn-success mt-2">Sign Up</button>
 
-            <a href="/login.php" class="text-decoration-none text-secondary d-block text-center">Login</a>
+            <a href="./login.php" class="text-decoration-none text-secondary d-block text-center">Login</a>
 
             <div class="form-group text-center small text-danger">
                 <?php
