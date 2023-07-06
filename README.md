@@ -18,3 +18,4 @@ To set up the necessary tables and data, follow these steps:
 1. Make sure you have PHP installed.
 2. Open your terminal or command prompt and navigate to the directory where your app's files are located.
 3. Run the following command to start a PHP development server ```shell php -S localhost:8000```
+4. Open your preferred web browser and enter the following URL (localhost:8000)
